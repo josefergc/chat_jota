@@ -18,7 +18,7 @@ var respuesta = [];
 
 const getSession = async ()=> {
     
-    const uri = 'http://localhost:3000/sesion';
+    const uri = 'https://jota-chat.herokuapp.com/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -33,7 +33,7 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         //const encodeMensaje = encodeURI(mensaje);
-        const uri = 'http://localhost:3000/respuesta';
+        const uri = 'https://jota-chat.herokuapp.com/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
