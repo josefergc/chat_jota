@@ -14,11 +14,12 @@ var usuario = {
 var saludo = '';
 let idSesion = "";
 var respuesta = [];
-
+var htmltemp = ''; 
 
 const getSession = async ()=> {
     
     const uri = 'https://jota-chat.herokuapp.com/sesion';
+    //const uri = 'http://localhost:3000/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -34,6 +35,7 @@ async function getrespuesta (numsesion,mensaje) {
     try{
         //const encodeMensaje = encodeURI(mensaje);
         const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        //const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -59,6 +61,11 @@ var btnMensaje =$('#btnMensaje');
 
 
 function EscogerOpcion(texto) {
+    divChatbox.html(htmltemp);
+    
+    renderMensaje(texto);
+    
+ 
     responderJota(texto)
         .then(console.log)
         .catch(console.log);
@@ -89,6 +96,9 @@ function renderJota(mensaje) {
     html += '<div class="box bg-light-inverse">'+ mensaje+'</div></div>';
     html += '</li>';
 
+ 
+    htmltemp = divChatbox.html() +html;
+
     if (adicional){
         var opciones = msAdd.split(",");
         let opcion = [];
@@ -108,7 +118,6 @@ function renderJota(mensaje) {
         txtMensaje.val('').focus();
         
     }
-
     divChatbox.append(html);
     
 }

@@ -107,3 +107,11 @@ margin-left: 10px;
 cursor: pointer;
 border-radius: 4px;
 }
+.chat-opcion-selected {
+  display: inline;
+  background-color: #007bb6;
+  color: white;
+  padding: 15px;
+  margin-left: 10px;
+  border-radius: 4px;
+}
