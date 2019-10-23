@@ -35,7 +35,7 @@ async function getrespuesta (numsesion,mensaje) {
     try{
         //const encodeMensaje = encodeURI(mensaje);
         const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+       // const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -75,17 +75,37 @@ function EscogerOpcion(texto) {
 
 function renderJota(mensaje) {
 
-    var posicion = mensaje.search("OPTION_");
+    var posicion;
+    var lista = mensaje.search("LISTA_");
     var adicional = false;
-    let msAdd =  '';mensaje.substring(posicion+8,mensaje.length-1);
-    
+    let msAdd =  '';
+
+    if (lista > -1){
+        posicion = mensaje.search();
+        var mensajelista = mensaje.substring(lista+7,mensaje.length);
+        let htmlLista = '';
+        posicion = mensajelista.search("\]");
+        mensajelista = mensajelista.substring(0,posicion);
+        var itemLista = mensajelista.split(";");
+        htmlLista += '<li>';
+        for (var i = 0; i < itemLista.length; i++){
+            htmlLista += '<ul>'+itemLista[i]+'</ul>';
+        }
+        htmlLista += '</li>';
+        
+        mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
+        console.log(mensaje);
+        
+    }
+    posicion = mensaje.search("OPTION_");
 
     if (posicion > -1){
         adicional = true;
         msAdd =  mensaje.substring(posicion+8,mensaje.length-1);
         mensaje = mensaje.substring(0,posicion-2);
     }
-        
+    
+ 
     
     var html ='';
             
