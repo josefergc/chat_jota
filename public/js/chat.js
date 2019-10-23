@@ -105,6 +105,7 @@ function renderJota(mensaje) {
     else{
         txtMensaje.prop('disabled',false);
         btnMensaje.prop('disabled',false);
+        txtMensaje.val('').focus();
         
     }
 
