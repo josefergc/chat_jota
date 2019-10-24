@@ -100,6 +100,7 @@ chat application Page
             
 .chat-opcion {
 display: inline;
+height:10px;
 background-color: #007bb6;
 color: white;
 padding: 15px;
@@ -107,6 +108,7 @@ margin-left: 10px;
 cursor: pointer;
 border-radius: 4px;
 }
+
 .chat-opcion-selected {
   display: inline;
   background-color: #007bb6;
@@ -114,4 +116,11 @@ border-radius: 4px;
   padding: 15px;
   margin-left: 10px;
   border-radius: 4px;
+}
+
+.lista-style .lista-item { 
+  display: list-item;
+  list-style: disc;
+  padding: 0 0 0 15px;
+  margin: 0 0 2px;
 }

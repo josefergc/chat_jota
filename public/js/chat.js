@@ -18,8 +18,8 @@ var htmltemp = '';
 
 const getSession = async ()=> {
     
-    const uri = 'https://jota-chat.herokuapp.com/sesion';
-    //const uri = 'http://localhost:3000/sesion';
+    //const uri = 'https://jota-chat.herokuapp.com/sesion';
+    const uri = 'http://localhost:3000/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -34,8 +34,8 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         //const encodeMensaje = encodeURI(mensaje);
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-       // const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -87,11 +87,11 @@ function renderJota(mensaje) {
         posicion = mensajelista.search("\]");
         mensajelista = mensajelista.substring(0,posicion);
         var itemLista = mensajelista.split(";");
-        htmlLista += '<li>';
+        htmlLista += '<ul class="lista-style">';
         for (var i = 0; i < itemLista.length; i++){
-            htmlLista += '<ul>'+itemLista[i]+'</ul>';
+            htmlLista += '<li class="lista-item">'+itemLista[i]+'</li>';
         }
-        htmlLista += '</li>';
+        htmlLista += '</ul>';
         
         mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
         console.log(mensaje);
