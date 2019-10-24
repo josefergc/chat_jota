@@ -14,12 +14,13 @@ var usuario = {
 var saludo = '';
 let idSesion = "";
 var respuesta = [];
-var htmltemp = ''; 
+var htmltemp = '';
+let numImagen = 0;
 
 const getSession = async ()=> {
     
-    const uri = 'https://jota-chat.herokuapp.com/sesion';
-    //const uri = 'http://localhost:3000/sesion';
+    //const uri = 'https://jota-chat.herokuapp.com/sesion';
+    const uri = 'http://localhost:3000/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -34,8 +35,8 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         //const encodeMensaje = encodeURI(mensaje);
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -57,8 +58,9 @@ getSession();
 var formEnviar = $('#formEnviar');
 var txtMensaje = $('#txtMensaje');
 var divChatbox = $('#divChatbox');
-var btnMensaje =$('#btnMensaje');
-
+var btnMensaje = $('#btnMensaje');
+var modalImagen= $('#modalImagen');
+var imgCanvas= $('#imgCanvas');
 
 function EscogerOpcion(texto) {
     divChatbox.html(htmltemp);
@@ -73,16 +75,24 @@ function EscogerOpcion(texto) {
         scrollBottom(); 
 }
 
+function agrandarImagen(idImagen) {
+    imgCanvas.attr("src", idImagen.src)
+    modalImagen.attr("style","display:block");
+}
+
+
+
 function renderJota(mensaje) {
 
     var posicion;
     var lista = mensaje.search("LISTA_");
     var adicional = false;
+    var mensajelista = '';
     let msAdd =  '';
 
+    //Verifica si hay una lista
     if (lista > -1){
-        posicion = mensaje.search();
-        var mensajelista = mensaje.substring(lista+7,mensaje.length);
+        mensajelista = mensaje.substring(lista+7,mensaje.length);
         let htmlLista = '';
         posicion = mensajelista.search("\]");
         mensajelista = mensajelista.substring(0,posicion);
@@ -97,8 +107,29 @@ function renderJota(mensaje) {
         console.log(mensaje);
         
     }
+
+    //Verifica si hay una imagen
+    var lista = mensaje.search("IMAGE_");
+    
+    if (lista > -1){
+        let htmlLista = '';
+        numImagen++;
+        mensajelista = mensaje.substring(lista+7,mensaje.length);
+        posicion = mensajelista.search("\]");
+        mensajelista = mensajelista.substring(0,posicion);
+        htmlLista += '<div class="container-imagen-chat">';
+        htmlLista += '<img id="imagen'+numImagen+'" class="imagen-chat" src="assets/images/jota/'+mensajelista+'"  style="width:100px;" onclick="agrandarImagen(imagen'+numImagen+')">';   
+        htmlLista += '</div>';   
+          
+        mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
+        console.log(mensaje);
+        
+    }
+
+
     posicion = mensaje.search("OPTION_");
 
+    //Verifica si hay boton de opciones
     if (posicion > -1){
         adicional = true;
         msAdd =  mensaje.substring(posicion+8,mensaje.length-1);
@@ -111,7 +142,7 @@ function renderJota(mensaje) {
             
 
     html += '<li>';
-    html += '<div class="chat-img"><img src="assets/images/users/jota_user.png" alt="user" /></div>';
+    html += '<div class="chat-img"><img src="assets/images/icons/jota_user.png" alt="user" /></div>';
     html += '<div class="chat-content">';
     html += '<div class="box bg-light-inverse">'+ mensaje+'</div></div>';
     html += '</li>';

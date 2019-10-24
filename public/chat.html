@@ -12,7 +12,7 @@
     <!-- Page CSS -->
     <link href="css/pages/chat-app-page.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" >
     <link href="css/chat.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
 
@@ -39,60 +39,60 @@
                 <!-- ============================================================== -->
                 <div class="row animated fadeIn">
                     <div class="col-12">
-                            <!-- .chat-row -->
-                            <div class="chat-main-box">
-                                <!-- .chat-left-panel -->
-                                <!-- .chat-left-panel -->
-                                <!-- .chat-right-panel -->
-                                <div class="chat-right-aside">
-                                    <div class="chat-main-header">
-                                        <div class="p-20 b-b">
-                                            <h3 class="box-title">Sala de chat</h3>
-                                        </div>
-                                    </div>
-
-                                    <div class="chat-rbox">
-                                        <ul class="chat-list p-20" id="divChatbox">
-                                            <!--chat Row -->
-                                            <li>
-                                                <div class="chat-img"><img src="assets/images/users/jota_user.png" alt="user" /></div>
-                                                <div class="chat-content">
-                                                    <div class="box bg-light-inverse">Hola soy jota, como te puedo ayudar?</div>
-                                                </div>
-                                            </li>
-                                            
-                                            <!--chat Row -->
-
-                                            <!--chat Row -->
-                                            <!--chat Row -->
-
-                                            <!--chat Row -->
-                                            <!--chat Row -->
-
-                                        </ul>
-                                    </div>
-                                    <div class="card-body b-t">
-                                        <form id="formEnviar">
-                                            <div class="row">
-                                                <div class="col-11">
-                                                    <input autocomplete="off" id="txtMensaje" placeholder="Escribe tu mensaje aquí" class="form-control b-0" autofocus>
-                                                </div>
-                                                <div class="col-1 text-right">
-                                                    <button type="submit" id="btnMensaje" class="btn btn-info btn-circle btn-lg"><i class="fa fa-paper-plane-o"></i> </button>
-                                                </div>
-                                            </div>
-                                        </form>
+                        <!-- .chat-row -->
+                        <div class="chat-main-box">
+                            <!-- .chat-right-panel -->
+                            <div class="chat-right-aside">
+                                <div class="chat-main-header">
+                                    <div class="p-20 b-b">
+                                        <h3 class="box-title">Sala de chat</h3>
                                     </div>
                                 </div>
-                                <!-- .chat-right-panel -->
+
+                                <div class="chat-rbox">
+                                    <ul class="chat-list p-20" id="divChatbox">
+                                        <!--chat Row -->
+                                        <li>
+                                            <div class="chat-img"><img src="assets/images/icons/jota_user.png" /></div>
+                                            <div class="chat-content">
+                                                <div class="box bg-light-inverse">Hola soy jota, como te puedo ayudar?</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body b-t">
+                                    <form id="formEnviar">
+                                        <div class="row">
+                                            <div class="col-11">
+                                                <input autocomplete="off" id="txtMensaje" placeholder="Escribe tu mensaje aquí" class="form-control b-0" autofocus>
+                                            </div>
+                                            <div class="col-1 text-right">
+                                                <button type="submit" id="btnMensaje" class="btn btn-info btn-circle btn-lg"><i class="fa fa-paper-plane-o"></i> </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <!-- /.chat-row -->
+                            <!-- .chat-right-panel -->
+                        </div>
+                        <!-- /.chat-row -->
                        
                     </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
+                
+                <div id="modalImagen" class="modal">
+
+                    <!-- The Close Button -->
+                    <span class="close">&times;</span>
+                  
+                    <!-- Modal Content (The Image) -->
+                    <img class="modal-content" id="imgCanvas">
+                  
+                </div>
+
 
             </div>
             <!-- ============================================================== -->
@@ -117,9 +117,18 @@
 
 
     <script src="js/libs/jquery.min.js"></script>
-    <script src="socket.io/socket.io.js"></script>
-
     <script src="js/chat.js"></script>
+    <script>
+        var modal = document.getElementById("modalImagen");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        } 
+    </script>
+ 
 
 </body>
 
