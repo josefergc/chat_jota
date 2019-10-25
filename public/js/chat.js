@@ -19,8 +19,8 @@ let numImagen = 0;
 
 const getSession = async ()=> {
     
-    const uri = 'https://jota-chat.herokuapp.com/sesion';
-    //const uri = 'http://localhost:3000/sesion';
+    //const uri = 'https://jota-chat.herokuapp.com/sesion';
+    const uri = 'http://localhost:3000/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -35,8 +35,8 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         //const encodeMensaje = encodeURI(mensaje);
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -80,66 +80,88 @@ function agrandarImagen(idImagen) {
     modalImagen.attr("style","display:block");
 }
 
+function transformarMensaje(tipo, mensaje, separador) {
+    let html = '';
+    let posicion = mensaje.search("\]");
+    var msModificado = mensaje.substring(0,posicion);
+    
+    if (separador)
+        var itemList = msModificado.split(separador);
 
+    switch(tipo){
+        case "lista":
+            html += '<ul class="lista-style">';
+            for (var i = 0; i < itemList.length; i++){
+                html += '<li class="lista-item">'+itemList[i]+'</li>';
+            }
+            html += '</ul>';
+            break;
+
+        case "link":
+            
+            html += '<a href='+itemList[0] + ' ';
+            if (itemList[1].substring(1,4)=== 'img')
+                html += '><img src="/assets/images/icons/'+itemList[1].substring(5,itemList[1].length-1)+ '"></a>';
+            else
+                html += 'target="_blank">'+itemList[1].substring(5,itemList[1].length-1)+'</a>';
+            break;
+    
+        case "image":
+            numImagen++;
+            msModificado = msModificado.substring(0,posicion);
+            html += '<div class="container-imagen-chat">';
+            html += '<img id="imagen'+numImagen+'" class="imagen-chat" src="assets/images/jota/'+msModificado+'"  style="width:100px;" onclick="agrandarImagen(imagen'+numImagen+')">';   
+            html += '</div>'; 
+            break;
+    }
+          
+
+    
+        
+    //mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
+    return html + mensaje.substring(posicion+1);
+}
 
 function renderJota(mensaje) {
 
     var posicion;
-    var lista = mensaje.search("LISTA_");
     var adicional = false;
-    var mensajelista = '';
+    var msjtx = '';
     let msAdd =  '';
 
     //Verifica si hay una lista
-    if (lista > -1){
-        mensajelista = mensaje.substring(lista+7,mensaje.length);
-        let htmlLista = '';
-        posicion = mensajelista.search("\]");
-        mensajelista = mensajelista.substring(0,posicion);
-        var itemLista = mensajelista.split(";");
-        htmlLista += '<ul class="lista-style">';
-        for (var i = 0; i < itemLista.length; i++){
-            htmlLista += '<li class="lista-item">'+itemLista[i]+'</li>';
-        }
-        htmlLista += '</ul>';
-        
-        mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
-        console.log(mensaje);
-        
+    var posmensaje = mensaje.search("LISTA_");
+    if (posmensaje > -1){
+        msjtx = transformarMensaje("lista",mensaje.substring(posmensaje+7),";");
+        mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
+    }
+
+    //Verifica si hay un enlace
+    posmensaje = mensaje.search("LINK_");
+    if (posmensaje > -1){
+        msjtx = transformarMensaje("link",mensaje.substring(posmensaje+6),",");
+        mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
     }
 
     //Verifica si hay una imagen
-    var lista = mensaje.search("IMAGE_");
+    posmensaje = mensaje.search("IMAGE_");
     
-    if (lista > -1){
-        let htmlLista = '';
-        numImagen++;
-        mensajelista = mensaje.substring(lista+7,mensaje.length);
-        posicion = mensajelista.search("\]");
-        mensajelista = mensajelista.substring(0,posicion);
-        htmlLista += '<div class="container-imagen-chat">';
-        htmlLista += '<img id="imagen'+numImagen+'" class="imagen-chat" src="assets/images/jota/'+mensajelista+'"  style="width:100px;" onclick="agrandarImagen(imagen'+numImagen+')">';   
-        htmlLista += '</div>';   
-          
-        mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
-        console.log(mensaje);
-        
+    if (posmensaje > -1){
+        msjtx = transformarMensaje("image",mensaje.substring(posmensaje+7));
+        mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
     }
 
 
-    posicion = mensaje.search("OPTION_");
-
+    posmensaje = mensaje.search("OPTION_");
     //Verifica si hay boton de opciones
-    if (posicion > -1){
+    if (posmensaje > -1){
         adicional = true;
-        msAdd =  mensaje.substring(posicion+8,mensaje.length-1);
-        mensaje = mensaje.substring(0,posicion-2);
+        msAdd =  mensaje.substring(posmensaje+8,mensaje.length-1);
+        mensaje = mensaje.substring(0,posmensaje-2);
     }
     
- 
     
-    var html ='';
-            
+    var html ='';        
 
     html += '<li>';
     html += '<div class="chat-img"><img src="assets/images/icons/jota_user.png" alt="user" /></div>';
