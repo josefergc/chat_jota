@@ -16,11 +16,12 @@ let idSesion = "";
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
+let imagedir = 'https://imagenes-jota.s3.us-east-2.amazonaws.com/';
 
 const getSession = async ()=> {
     
-    const uri = 'https://jota-chat.herokuapp.com/sesion';
-    //const uri = 'http://localhost:3000/sesion';
+    //const uri = 'https://jota-chat.herokuapp.com/sesion';
+    const uri = 'http://localhost:3000/sesion';
 
     const response = await (await fetch(uri, {
         method:'GET',
@@ -35,8 +36,8 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         //const encodeMensaje = encodeURI(mensaje);
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -110,7 +111,7 @@ function transformarMensaje(tipo, mensaje, separador) {
             numImagen++;
             msModificado = msModificado.substring(0,posicion);
             html += '<div class="container-imagen-chat">';
-            html += '<img id="imagen'+numImagen+'" class="imagen-chat" src="assets/images/jota/'+msModificado+'"  style="width:100px;" onclick="agrandarImagen(imagen'+numImagen+')">';   
+            html += '<img id="imagen'+numImagen+'" class="imagen-chat" src="'+ imagedir + msModificado+'"  style="width:100px;" onclick="agrandarImagen(imagen'+numImagen+')">';   
             html += '</div>'; 
             break;
     }
