@@ -1,25 +1,47 @@
 var params = new URLSearchParams(window.location.search);
+var usuario;
 
-if (!params.has('nombre') || !params.has('email') || !params.has('telefono')) {
-    window.location = 'index.html';
-    throw new Error('Todos los campos son necesarios');
+if (sessionStorage.getItem("sesion")){
+
+    usuario = {
+        nombre: sessionStorage.getItem("nombre"),
+        email: sessionStorage.getItem("email"),
+        telefono: sessionStorage.getItem("telefono")
+    }
+
+}
+else{
+
+    if (!params.has('nombre') || !params.has('email') || !params.has('telefono')) {
+        window.location = 'index.html';
+        throw new Error('Todos los campos son necesarios');
+    }
+
+    usuario = {
+        nombre: params.get('nombre'),
+        email: params.get('email'),
+        telefono: params.get('telefono')
+    }
+    sessionStorage.setItem('nombre',usuario.nombre);
+    sessionStorage.setItem('email',usuario.email);
+    sessionStorage.setItem('telefono',usuario.telefono); 
 }
 
-var usuario = {
-    nombre: params.get('nombre'),
-    email: params.get('email'),
-    telefono: params.get('telefono')
-}
+
+
+
+
 
 var saludo = '';
 let idSesion = "";
+var sesiontmp = "";
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
 let imagedir = 'https://imagenes-jota.s3.us-east-2.amazonaws.com/';
 
-const getSession = async ()=> {
-    
+async function getSession() {
+    try{
     const uri = 'https://jota-chat.herokuapp.com/sesion';
     //const uri = 'http://localhost:3000/sesion';
 
@@ -28,14 +50,23 @@ const getSession = async ()=> {
         headers: { 'Content-Type': 'application/json'},
     })).json();
     
-   idSesion = response.session_id;
-   console.log(idSesion);
+    console.log(response);
+    if (response.code === 400) {
+        renderJota('Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["https://colombiacompra.gov.co/content/chat-mesa-de-ayuda","txt:Mesa de servicio"]');
+        return;
+    }
+    idSesion = response.session_id;
+    sessionStorage.setItem('sesion',idSesion); 
+    return response.session_id;
+    
+    }catch(err){
+        console.log(err);
+    }
 }
 
 async function getrespuesta (numsesion,mensaje) {
     
     try{
-        //const encodeMensaje = encodeURI(mensaje);
         const uri = 'https://jota-chat.herokuapp.com/respuesta';
         //const uri = 'http://localhost:3000/respuesta';
         
@@ -53,7 +84,7 @@ async function getrespuesta (numsesion,mensaje) {
     }
 }
 
-getSession();
+sesiontmp = getSession();
 
 //referencias de jQuery
 var formEnviar = $('#formEnviar');
@@ -198,18 +229,28 @@ function renderJota(mensaje) {
 
 const responderJota = async (mensaje) => {
     try{
-        console.log(mensaje);
-        const responder = await getrespuesta(idSesion,mensaje);
-       
-        renderJota(responder.output.generic[0].text);
-        scrollBottom();       
-        
+        let responder = await getrespuesta(idSesion,mensaje);
+
+        if (responder.status===200)
+        {
+            renderJota(responder.result.output.generic[0].text);
+            scrollBottom();       
+        }
+        //si pierda la sesion se debe volver a conectar
+        else if (responder.code === 404)
+        {
+            sesiontmp = await getSession();
+            responder = await getrespuesta(sesiontmp,mensaje);
+            renderJota(responder.result.output.generic[0].text);
+            scrollBottom(); 
+        }
 
     }catch(e){
         return 'No se pudo obtener respuesta' + e;
     }
 
 }
+
 
 function scrollBottom() {
 
@@ -265,11 +306,12 @@ formEnviar.on('submit', function(event){
     txtMensaje.prop('disabled',true);
     btnMensaje.prop('disabled',true);
 
+    
+
     responderJota(txtMensaje.val())
         .then(console.log)
         .catch(console.log);
     
-    console.log(idSesion);
     
     txtMensaje.val('').focus();
         

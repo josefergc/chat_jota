@@ -1,0 +1,1 @@
+function getFullYear() { [native code] }function getMonth() { [native code] }function getDay() { [native code] } escribir la sesion[object Object]
