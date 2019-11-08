@@ -1,8 +1,16 @@
 var params = new URLSearchParams(window.location.search);
 var usuario;
+let idSesion = "";
+var sesiontmp = "";
+
+var mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["https://colombiacompra.gov.co/content/chat-mesa-de-ayuda","txt:Mesa de servicio"]';
+ 
+
+
 
 if (sessionStorage.getItem("sesion")){
 
+    idSesion = sessionStorage.getItem("sesion");
     usuario = {
         nombre: sessionStorage.getItem("nombre"),
         email: sessionStorage.getItem("email"),
@@ -25,42 +33,44 @@ else{
     sessionStorage.setItem('nombre',usuario.nombre);
     sessionStorage.setItem('email',usuario.email);
     sessionStorage.setItem('telefono',usuario.telefono); 
+    sesiontmp = getSession();
+
 }
 
 
 
 
 
-
 var saludo = '';
-let idSesion = "";
-var sesiontmp = "";
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
 let imagedir = 'https://imagenes-jota.s3.us-east-2.amazonaws.com/';
+var vezSinResponder = 0;
 
-async function getSession() {
+async function getSession()  {
     try{
-    const uri = 'https://jota-chat.herokuapp.com/sesion';
-    //const uri = 'http://localhost:3000/sesion';
+        const uri = 'https://jota-chat.herokuapp.com/sesion';
+        //const uri = 'http://localhost:3000/sesion';
 
-    const response = await (await fetch(uri, {
-        method:'GET',
-        headers: { 'Content-Type': 'application/json'},
-    })).json();
-    
-    console.log(response);
-    if (response.code === 400) {
-        renderJota('Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["https://colombiacompra.gov.co/content/chat-mesa-de-ayuda","txt:Mesa de servicio"]');
-        return;
-    }
-    idSesion = response.session_id;
-    sessionStorage.setItem('sesion',idSesion); 
-    return response.session_id;
+        const response = await (await fetch(uri, {
+            method:'GET',
+            headers: { 'Content-Type': 'application/json'},
+        })).json();
+        
+        if (response.code === 400) {
+            renderJota(mensajeError);
+            scrollBottom();
+            return;
+        }
+        idSesion = response.session_id;
+        sessionStorage.setItem('sesion',idSesion);
+        return idSesion; 
     
     }catch(err){
         console.log(err);
+        renderJota(mensajeError);
+        scrollBottom();    
     }
 }
 
@@ -74,7 +84,9 @@ async function getrespuesta (numsesion,mensaje) {
             method:'GET',
             headers: { 'Content-Type': 'application/json',
                         'sesion': numsesion,
-                        'mensaje': mensaje    
+                        'mensaje': mensaje,
+                        'usuario':usuario.nombre,
+                        'email': usuario.email  
             }
         })).json();
 
@@ -84,7 +96,6 @@ async function getrespuesta (numsesion,mensaje) {
     }
 }
 
-sesiontmp = getSession();
 
 //referencias de jQuery
 var formEnviar = $('#formEnviar');
@@ -98,7 +109,7 @@ function EscogerOpcion(texto) {
     divChatbox.html(htmltemp);
     
     renderMensaje(texto);
-    
+
  
     responderJota(texto)
         .then(console.log)
@@ -227,10 +238,30 @@ function renderJota(mensaje) {
     
 }
 
+
+
+
 const responderJota = async (mensaje) => {
     try{
-        let responder = await getrespuesta(idSesion,mensaje);
+        
 
+        if (idSesion.length === 0){
+            vezSinResponder++;
+            if (vezSinResponder === 3){
+                renderJota(mensajeError);
+                scrollBottom();
+                return;
+            }
+            txtMensaje.prop('disabled',false);
+            btnMensaje.prop('disabled',false);
+            txtMensaje.val('').focus();
+            return;
+        }
+        
+        vezSinResponder=0;
+
+        let responder = await getrespuesta(idSesion,mensaje);
+        
         if (responder.status===200)
         {
             renderJota(responder.result.output.generic[0].text);
@@ -293,26 +324,35 @@ function renderMensaje(mensaje) {
     divChatbox.append(html);
 }
 
+
 //Listeners
 formEnviar.on('submit', function(event){
 
+    let mensaje = txtMensaje.val();
+    
     event.preventDefault();
 
-    if (txtMensaje.val().trim().length === 0) {
+    if (mensaje.length === 0) {
         return;
     }
         
-    renderMensaje(txtMensaje.val());
+    renderMensaje(mensaje);
     txtMensaje.prop('disabled',true);
     btnMensaje.prop('disabled',true);
 
-    
+     
+    if (idSesion.length === 0) {
+        var fecha = new Date();
+        setTimeout(function(){
+            responderJota(mensaje);
+        },5000);
+    }
+    else{
+        responderJota(mensaje)
+            .then(console.log)
+            .catch(console.log);
+    }
 
-    responderJota(txtMensaje.val())
-        .then(console.log)
-        .catch(console.log);
-    
-    
     txtMensaje.val('').focus();
         
 });

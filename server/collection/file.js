@@ -28,5 +28,6 @@ const fechaActual = () => {
 
 
 module.exports = { 
-    guardarLog
+    guardarLog,
+    fechaActual
 }

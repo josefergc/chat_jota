@@ -1,14 +1,18 @@
 const mongoose = require ('mongoose');
+const timeZone = require('mongoose-timezone');
 
 const Schema = mongoose.Schema;
 
-let errorSchema = new Schema ({
-    fecha: { type: Date, default: Date.now},
-    error: String,
-    descripcion: String
-
+let conversacion = new Schema ({
+    input:String,
+    output: String,
+    intent: String,
+    porcentaje: Number,
+    fecha: {type:Date,default:Date.now},
+    usuario: String,
+    email: String
 });
 
 
-
-module.exports = mongoose.model('Error', errorSchema)
+conversacion.plugin(timeZone,{paths:['fecha']})
+module.exports = mongoose.model('Conversacion',conversacion)

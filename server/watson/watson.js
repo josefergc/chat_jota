@@ -3,7 +3,7 @@ var fs = require('fs');
  
 const app = express();
 
-const errorItem = require('../collection/collection');
+const intencion = require('../collection/collection');
 const archivo = require('../collection/file');
 
 
@@ -27,18 +27,12 @@ app.get('/sesion', function(req, res){
     })
     .then(response => {
         console.log(response.result);
-        //let errorSession = new errorItem({
-        //    error: 'campo 1',
-        //    descripcion: 'Campo 2'
-        //}); 
-        //errorSession.save();
-        
         res.json(response.result); 
     })
     .catch(err => {
         console.log(err);
         archivo.guardarLog('No se pudo crear la sesion '+ JSON.stringify(err));
-        
+
         res.status(400).json({
             code:400,
             ok: false,
@@ -52,6 +46,8 @@ app.get('/respuesta', function(req,res){
     
     const sesion = req.headers.sesion;
     const mensaje = req.headers.mensaje;
+    const usuario = req.headers.usuario;
+    const email = req.headers.email;
     
 
     const params = {
@@ -65,7 +61,20 @@ app.get('/respuesta', function(req,res){
     console.log(params);
     assistant.message(params)
     .then(response => {
-        console.log(response)
+        console.log(response);
+        if (response.status===200) {
+            let conversacion = new intencion({
+                input: mensaje,
+                output: response.result.output.generic[0].text,
+                intent: response.result.output.intents[0].intent,
+                porcentaje: response.result.output.intents[0].confidence,
+                usuario: usuario,
+                email: email
+            }); 
+            conversacion.save();
+            
+            
+        }
         res.json(response); 
     })
     .catch(err => {
