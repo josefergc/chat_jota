@@ -62,12 +62,19 @@ app.get('/respuesta', function(req,res){
     assistant.message(params)
     .then(response => {
         console.log(response);
+        let intension = "";
+        let porcentaje = "";
+        if (response.result.output.intents[0])
+        {
+            intension = response.result.output.intents[0].intent;
+            porcentaje = response.result.output.intents[0].confidence;
+        }
         if (response.status===200) {
             let conversacion = new intencion({
                 input: mensaje,
                 output: response.result.output.generic[0].text,
-                intent: response.result.output.intents[0].intent,
-                porcentaje: response.result.output.intents[0].confidence,
+                intent: intension,
+                porcentaje: porcentaje,
                 usuario: usuario,
                 email: email
             }); 

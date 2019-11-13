@@ -275,9 +275,14 @@ const responderJota = async (mensaje) => {
             renderJota(responder.result.output.generic[0].text);
             scrollBottom(); 
         }
+        else{
+            renderJota(mensajeError);
+            scrollBottom();    
+        }
 
     }catch(e){
-        return 'No se pudo obtener respuesta' + e;
+        renderJota(mensajeError);
+        scrollBottom();    
     }
 
 }
