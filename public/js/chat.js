@@ -172,17 +172,19 @@ function renderJota(mensaje) {
     var msjtx = '';
     let msAdd =  '';
 
-    //Verifica si hay una lista
-    var posmensaje = mensaje.search("LISTA_");
-    if (posmensaje > -1){
-        msjtx = transformarMensaje("lista",mensaje.substring(posmensaje+7),";");
-        mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
-    }
+    
 
     //Verifica si hay un enlace
     posmensaje = mensaje.search("LINK_");
     if (posmensaje > -1){
         msjtx = transformarMensaje("link",mensaje.substring(posmensaje+6),",");
+        mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
+    }
+
+    //Verifica si hay una lista
+    var posmensaje = mensaje.search("LISTA_");
+    if (posmensaje > -1){
+        msjtx = transformarMensaje("lista",mensaje.substring(posmensaje+7),";");
         mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
     }
 
