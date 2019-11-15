@@ -274,7 +274,7 @@ const responderJota = async (mensaje) => {
             scrollBottom();       
         }
         //si pierda la sesion se debe volver a conectar
-        else if (responder.code === 404)
+        else if (responder.err.code === 404)
         {
             sesiontmp = await getSession();
             responder = await getrespuesta(sesiontmp,mensaje);
@@ -285,7 +285,9 @@ const responderJota = async (mensaje) => {
         }
         else{
             renderJota(mensajeError);
-            scrollBottom();    
+            scrollBottom(); 
+            console.log(responder.status);
+            console.log(responder.err.code);   
         }
 
     }catch(e){
