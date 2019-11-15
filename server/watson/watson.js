@@ -61,18 +61,24 @@ app.get('/respuesta', function(req,res){
     console.log(params);
     assistant.message(params)
     .then(response => {
-        console.log('Response de Respuesta:' + response);
+        console.log('Response de Respuesta:');
+     
         let intension = "";
         let porcentaje = "";
+        let salida = "";
+     
         if (response.result.output.intents[0])
         {
             intension = response.result.output.intents[0].intent;
             porcentaje = response.result.output.intents[0].confidence;
         }
+        if (response.result.output.generic[0])
+            salida = response.result.output.generic[0].text;
+          
         if (response.status===200) {
             let conversacion = new intencion({
                 input: mensaje,
-                output: response.result.output.generic[0].text,
+                output: salida,
                 intent: intension,
                 porcentaje: porcentaje,
                 usuario: usuario,
@@ -82,13 +88,16 @@ app.get('/respuesta', function(req,res){
             
             
         }
+        console.log(response);
         res.json(response); 
     })
     .catch(err => {
         console.log('Catch de respuesta Error:' + err);
-        console.log(err.code);
-       
-        res.status(err.code).json({
+        console.log(err);
+        let idError = 400;
+        if (err.code)
+            idError = err.code;
+        res.status(idError).json({
             ok: false,
             err
         });
