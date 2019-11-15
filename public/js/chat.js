@@ -50,8 +50,8 @@ var vezSinResponder = 0;
 
 async function getSession()  {
     try{
-        const uri = 'https://jota-chat.herokuapp.com/sesion';
-        //const uri = 'http://localhost:3000/sesion';
+        //const uri = 'https://jota-chat.herokuapp.com/sesion';
+        const uri = 'http://localhost:3000/sesion';
 
         const response = await (await fetch(uri, {
             method:'GET',
@@ -77,8 +77,8 @@ async function getSession()  {
 async function getrespuesta (numsesion,mensaje) {
     
     try{
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',

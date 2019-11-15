@@ -61,7 +61,7 @@ app.get('/respuesta', function(req,res){
     console.log(params);
     assistant.message(params)
     .then(response => {
-        console.log(response);
+        console.log('Response de Respuesta:' + response);
         let intension = "";
         let porcentaje = "";
         if (response.result.output.intents[0])
@@ -85,8 +85,10 @@ app.get('/respuesta', function(req,res){
         res.json(response); 
     })
     .catch(err => {
-        console.log(err);
-        res.status(400).json({
+        console.log('Catch de respuesta Error:' + err);
+        console.log(err.code);
+       
+        res.status(err.code).json({
             ok: false,
             err
         });
