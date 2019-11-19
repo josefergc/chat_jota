@@ -355,7 +355,7 @@ formEnviar.on('submit', function(event){
     renderMensaje(mensaje);
     txtMensaje.prop('disabled',true);
     btnMensaje.prop('disabled',true);
-
+    scrollBottom();
      
     if (idSesion.length === 0) {
         var fecha = new Date();
