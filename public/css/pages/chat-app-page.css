@@ -94,28 +94,56 @@ chat application Page
           
 
 .chat-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
   padding-left: 15px;
-  padding-bottom: 10px;
-  }
-            
+  padding-bottom: 15px;
+}
+
+.chat-float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:20px;
+	right:20px;
+	background-color:#3A64DF;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:40px;
+  opacity: 0.4;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.14);
+  z-index:100;
+}
+
+.chat-float:hover{
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  opacity: 1;
+
+}
+
+
+.icon-float{
+  margin-top:6px;
+}
+
+
 .chat-opcion {
-display: inline;
-height: 10px;
+cursor: pointer;
+height: 40px;
 background-color: #007bb6;
 color: white;
-padding: 15px;
-margin-left: 10px;
-cursor: pointer;
+padding: 6px 15px 5px 15px;
+margin-right: 10px;
+margin-bottom: 10px;
 border-radius: 4px;
 }
 
-.chat-opcion-selected {
-  display: inline;
-  background-color: #007bb6;
-  color: white;
-  padding: 15px;
-  margin-left: 10px;
-  border-radius: 4px;
+.chat-opcion:hover {
+  background-color: #9bdfff;
+  color: black;
+ 
 }
 
 .lista-style .lista-item { 

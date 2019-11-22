@@ -194,6 +194,9 @@ function renderJota(mensaje) {
     if (posmensaje > -1){
         msjtx = transformarMensaje("image",mensaje.substring(posmensaje+7));
         mensaje = mensaje.substring(0,posmensaje-1) + msjtx; 
+        setTimeout(function(){
+            scrollBottom();
+        },3000);
     }
 
 
