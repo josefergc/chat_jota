@@ -101,33 +101,6 @@ chat application Page
   padding-bottom: 15px;
 }
 
-.chat-float{
-	position:fixed;
-	width:60px;
-	height:60px;
-	bottom:20px;
-	right:20px;
-	border-radius:50px;
-	text-align:center;
-  font-size:40px;
-  opacity: 0.4;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.14);
-  z-index:100;
-}
-
-.chat-float::after{
-  content: "";
-  padding-left: 60px;
-  padding-bottom: 20px; 
-  background: url(Chat_jota.png) left center no-repeat;
- }
-
-.chat-float:hover{
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  opacity: 1;
-
-}
-
 
 .icon-float{
   margin-top:6px;
