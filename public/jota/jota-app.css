@@ -1,5 +1,6 @@
 .chat-float{
-	position:fixed;
+  cursor:pointer;
+  position:fixed;
 	width:60px;
 	height:60px;
 	bottom:20px;
