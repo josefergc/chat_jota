@@ -15,7 +15,8 @@
 .chat-float::before{
   content: "";
   padding-left: 60px;
-  background: url(Chat_jota.png) left center no-repeat;
+  padding-bottom: 20px; 
+  background: url(Chat_jota.png) no-repeat;
  }
 
 .chat-float:hover{
