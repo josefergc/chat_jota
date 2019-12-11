@@ -12,10 +12,9 @@
   z-index:100;
 }
 
-.chat-float::after{
+.chat-float::before{
   content: "";
   padding-left: 60px;
-  padding-bottom: 10px; 
   background: url(Chat_jota.png) left center no-repeat;
  }
 
