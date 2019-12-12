@@ -71,7 +71,7 @@ chat application Page
     .chat-main-box .chat-right-aside .chat-list {
       max-height: none;
       height: 100%;
-      padding-top: 40px; }
+      padding-top: 10px; }
       .chat-main-box .chat-right-aside .chat-list .chat-text {
         border-radius: 6px; }
     .chat-main-box .chat-right-aside .send-chat-box {
