@@ -1,9 +1,12 @@
 .chat-list {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    height: 480px !important;
+    height: auto !important;
+    min-height: 450px;
 }
 
 textarea {
     width: 100%;
 }
+
+card-
