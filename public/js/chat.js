@@ -108,7 +108,7 @@ var imgCanvas= $('#imgCanvas');
 
 function resizeHeight(){
     var vpw = $(window).height();
-    divChatbox.css('height', vpw/1.45);
+    divChatbox.css('height', vpw/1.41);
 }
 
 resizeHeight();

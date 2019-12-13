@@ -16,3 +16,19 @@ textarea {
     vertical-align: top;
  }
 
+ .calif-btn{
+     border-radius: 5px;
+     background: dodgerblue;
+     color:white;
+     text-align: center;
+     font-weight: bold;
+     padding: 7px;
+ }
+ 
+ .calif-btn:hover{
+    cursor: pointer;
+}
+
+#textoChat{
+    display: initial !important;
+}
