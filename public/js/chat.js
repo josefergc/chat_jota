@@ -105,6 +105,14 @@ var btnMensaje = $('#btnMensaje');
 var modalImagen= $('#modalImagen');
 var imgCanvas= $('#imgCanvas');
 
+
+function resizeHeight(){
+    var vpw = $(window).height();
+    divChatbox.css('height', vpw/1.45);
+}
+
+resizeHeight();
+
 function EscogerOpcion(texto) {
     divChatbox.html(htmltemp);
     
