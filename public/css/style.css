@@ -120,7 +120,7 @@ h2 {
 
 h3 {
   line-height: 30px;
-  font-size: 21px; }
+  font-size: 20px; }
 
 h4 {
   line-height: 22px;
@@ -5605,13 +5605,6 @@ File: scss
 .hidden-xs-up {
   display: none !important; }
 
-@media (max-width: 575px) {
-  .hidden-xs-down {
-    display: none !important; } }
-
-@media (min-width: 576px) {
-  .hidden-sm-up {
-    display: none !important; } }
 
 @media (max-width: 767px) {
   .hidden-sm-down {
