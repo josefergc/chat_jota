@@ -26,7 +26,11 @@ textarea {
  }
  
  .calif-btn:hover{
-    cursor: pointer;
+    border-color: black;
+    background-color: #9bdfff;
+    color: black;
+    font-weight: normal;
+    
 }
 
 #textoChat{
