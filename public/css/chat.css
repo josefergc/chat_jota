@@ -33,6 +33,11 @@ textarea {
     
 }
 
+#headerJota{
+    display: inline;
+     
+}
+
 #textoChat{
     display: initial !important;
 }

@@ -5390,6 +5390,7 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 @media (min-width: 1600px) {
+  
   .col-xlg-1, .col-xlg-10, .col-xlg-11, .col-xlg-12, .col-xlg-2, .col-xlg-3, .col-xlg-4, .col-xlg-5, .col-xlg-6, .col-xlg-7, .col-xlg-8, .col-xlg-9 {
     float: left; }
   .col-xlg-12 {
@@ -5605,6 +5606,13 @@ File: scss
 .hidden-xs-up {
   display: none !important; }
 
+@media (max-width: 575px) {
+  .hidden-xs-down {
+    display: none !important; } }
+
+@media (min-width: 576px) {
+  .hidden-sm-up {
+    display: none !important; } }
 
 @media (max-width: 767px) {
   .hidden-sm-down {
@@ -5740,12 +5748,58 @@ File: scss
     flex-wrap: nowrap !important;
     -webkit-flex-wrap: nowrap !important; } }
 
+@media (max-width: 575px) {
+      h3{
+        line-height: 20px;
+        font-size: 16px;
+        font-weight: bold 
+      }
+
+      .col-sm-9{
+        width: 250px;
+        display: inline;
+      }
+
+      .col-sm-9{
+        width: 250px;
+        display: inline;
+      }
+      .col-xs-4{
+        margin-left: 10px;
+        width: 450px;
+        display: inline;
+      }
+
+      .calif-btn{
+        font-weight: normal;
+        font-size: 10px;
+        margin-left: 10px; 
+      }
+
+      .col-12{
+        padding:0;
+      }
+
+      .container-fluid {
+        padding: 10px 5px 10px 5px; 
+      }
+      
+      .chat-main-box .chat-right-aside {
+          width: 100%; }
+      
+      .right-aside {
+            margin-left: 0px; }
+      
+
+
+               
+}
 /*-- ============================================================== 
  Phone and below ipad(767px) 
  ============================================================== */
 @media (max-width: 767px) {
   .container-fluid {
-    padding: 25px 15px 25px 15px; }
+    padding: 20px 15px 20px 15px; }
   /*Header*/
   .topbar {
     position: fixed;
@@ -5833,6 +5887,7 @@ File: scss
       display: block; }
   .chat-main-box .chat-right-aside {
     width: 100%; }
+
   /*Timeline*/
   ul.timeline:before {
     left: 40px; }
@@ -5854,11 +5909,6 @@ File: scss
     left: -14px;
     border-right-width: 14px;
     border-left-width: 0; }
-  /*Contact app page*/
-  .left-aside {
-    width: 100%;
-    position: relative;
-    border: 0px; }
   .right-aside {
     margin-left: 0px; }
   .flex-wrap {

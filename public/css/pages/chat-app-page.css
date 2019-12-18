@@ -65,7 +65,7 @@ chat application Page
   .chat-main-box .chat-right-aside {
     width: 100%;
     float: left; }
-    .chat-main-box .chat-right-aside .chat-rbox {
+    .chat-main-box .chat-right-aside {
       height: auto;
       position: relative; }
     .chat-main-box .chat-right-aside .chat-list {
