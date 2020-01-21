@@ -257,7 +257,8 @@ function renderJota(mensaje) {
 const responderJota = async (mensaje) => {
     try{
         
-        var answer = "Disculpa, no he entendido tu solicitud, puedes reformular tu pregunta por favor";
+        var answer = "";
+        //Disculpa, no he entendido tu solicitud, puedes reformular tu pregunta por favor";
         //o si lo prefieres, da clic en el siguiente link donde uno de los asesores de la mesa de servicio
         // de CCE te ayudar'a mientras aprendo acerca del tema
         if (idSesion.length === 0){
@@ -281,8 +282,11 @@ const responderJota = async (mensaje) => {
         {
             if (responder.result.output.generic[0])
                 answer = responder.result.output.generic[0].text;
-            renderJota(answer);
-            scrollBottom();       
+            if (answer.length>0)
+            {
+                renderJota(answer);
+                scrollBottom();
+            }       
         }
         //si pierda la sesion se debe volver a conectar
         else if (responder.err.code === 404)
@@ -291,8 +295,11 @@ const responderJota = async (mensaje) => {
             responder = await getrespuesta(sesiontmp,mensaje);
             if (responder.result.output.generic[0])
                 answer = responder.result.output.generic[0].text;  
-            renderJota(answer);
-            scrollBottom(); 
+            if (answer.length>0)
+            {
+                renderJota(answer);
+                scrollBottom();
+            }
         }
         else{
             renderJota(mensajeError);
