@@ -286,7 +286,14 @@ const responderJota = async (mensaje) => {
             {
                 renderJota(answer);
                 scrollBottom();
-            }       
+            } 
+            else
+            {
+                txtMensaje.prop('disabled',false);
+                btnMensaje.prop('disabled',false);
+                txtMensaje.val('').focus();
+            }
+
         }
         //si pierda la sesion se debe volver a conectar
         else if (responder.err.code === 404)
@@ -299,6 +306,12 @@ const responderJota = async (mensaje) => {
             {
                 renderJota(answer);
                 scrollBottom();
+            }
+            else
+            {
+                txtMensaje.prop('disabled',false);
+                btnMensaje.prop('disabled',false);
+                txtMensaje.val('').focus();
             }
         }
         else{
