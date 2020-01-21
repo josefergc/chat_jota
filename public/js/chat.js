@@ -3,6 +3,9 @@ var usuario;
 let idSesion = "";
 var sesiontmp = "";
 
+var mensajeUsuario = "";
+
+
 var mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["https://colombiacompra.gov.co/content/chat-mesa-de-ayuda","txt:Mesa de servicio"]';
  
 
@@ -150,11 +153,16 @@ function transformarMensaje(tipo, mensaje, separador) {
 
         case "link":
             
-            html += '<a href='+itemList[0] + ' ';
-            if (itemList[1].substring(1,4)=== 'img')
-                html += '><img src="/assets/images/icons/'+itemList[1].substring(5,itemList[1].length-1)+ '"></a>';
+            if (itemList[1].search("mesadeservicio")>-1)
+                html += '<a href="https://www.colombiacompra.gov.co/content/chat-mesa-de-ayuda?nameUser=' + usuario.nombre + ' " target="_blank">Mesa de servicio</a>';
             else
-                html += 'target="_blank">'+itemList[1].substring(5,itemList[1].length-1)+'</a>';
+            {
+                html += '<a href='+itemList[0] + ' ';
+                if (itemList[1].substring(1,4)=== 'img')
+                    html += '><img src="/assets/images/icons/'+itemList[1].substring(5,itemList[1].length-1)+ '"></a>';
+                else
+                    html += 'target="_blank">'+itemList[1].substring(5,itemList[1].length-1)+'</a>';
+            }
             break;
     
         case "image":
@@ -376,7 +384,7 @@ function renderMensaje(mensaje) {
 formEnviar.on('submit', function(event){
 
     let mensaje = txtMensaje.val();
-    
+    mensajeUsuario = mensaje;
     event.preventDefault();
 
     if (mensaje.length === 0) {
