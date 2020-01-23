@@ -6,7 +6,7 @@ var sesiontmp = "";
 var mensajeUsuario = "";
 
 
-var mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["https://www.colombiacompra.gov.co/content/chat-mesa-de-ayuda","txt:Mesa de servicio"]';
+var mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["mesadeservicio",link]';
  
 
 
@@ -53,8 +53,8 @@ var vezSinResponder = 0;
 
 async function getSession()  {
     try{
-        const uri = 'https://jota-chat.herokuapp.com/sesion';
-        //const uri = 'http://localhost:3000/sesion';
+        //const uri = 'https://jota-chat.herokuapp.com/sesion';
+        const uri = 'http://localhost:3000/sesion';
 
         const response = await (await fetch(uri, {
             method:'GET',
@@ -80,8 +80,8 @@ async function getSession()  {
 async function getrespuesta (numsesion,mensaje) {
     
     try{
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
+        const uri = 'http://localhost:3000/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
