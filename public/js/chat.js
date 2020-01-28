@@ -48,7 +48,7 @@ var saludo = '';
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
-let imagedir = 'https://imagenes-jota.s3.us-east-2.amazonaws.com/';
+let imagedir = 'https://jota-chat.s3.amazonaws.com/';
 var vezSinResponder = 0;
 
 async function getSession()  {
