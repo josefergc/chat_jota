@@ -154,7 +154,7 @@ function transformarMensaje(tipo, mensaje, separador) {
         case "link":
             
             if (itemList[0].search("mesadeservicio")>-1)
-                html += '<a href="https://www.colombiacompra.gov.co/content/chat-mesa-de-ayuda?nameUser=' + usuario.nombre + '&emailUser='+ usuario.email+ '&phoneUser='+ usuario.telefono+ '&message='+ mensajeUsuario+ '" target="_blank">Mesa de servicio</a>';
+                html += '<a href="https://oscloud.com.co:8092/webchatLogin.php?Nm=' + usuario.nombre + '&Cr='+ usuario.email+ '&Tp='+ usuario.telefono+ '&As='+ mensajeUsuario+ '" target="_blank">Mesa de servicio</a>';
             else
             {
                 html += '<a href='+itemList[0] + ' ';
