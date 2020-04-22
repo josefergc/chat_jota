@@ -14,10 +14,10 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const assistant = new AssistantV2({
   version: '2019-02-28',
   authenticator: new IamAuthenticator({
-    apikey: 'mKHEVaXFtVLOLjABp_q5WYU3wbv_W8AybNJTimJcIotT',
+    apikey: 'Md8OXOuqAFN2R2JMsNXyE3Su5TdDFYsKg9V3J7D3rnIQ',
     //apikey: 'pmORdu5JkxdjGB-6y37IMV-N-lO7AL76AAfo_5l14D5y',
   }),
-  url: 'https://api.us-east.assistant.watson.cloud.ibm.com/instances/d6c38260-189e-4bbc-893f-9eaf46ce8392',
+  url: 'https://api.us-east.assistant.watson.cloud.ibm.com/instances/2b7f4647-b74f-40dd-96d7-bbf72c61e8ce',
   //url: 'https://api.us-east.assistant.watson.cloud.ibm.com/instances/d6c38260-189e-4bbc-893f-9eaf46ce8392',
 });
 
@@ -25,7 +25,7 @@ const assistant = new AssistantV2({
 app.get('/sesion', function(req, res){
 
     assistant.createSession({
-        assistantId: 'fb72deee-be74-47b4-b1c4-c9125608abea'
+        assistantId: 'd445d7b9-0a58-4107-8e23-1a76dddcb575'
         //assistantId: 'a426ba54-d8e6-4990-a707-35b6ae1707a6'
     })
     .then(response => {
@@ -54,7 +54,7 @@ app.get('/respuesta', function(req,res){
     
 
     const params = {
-        assistantId: 'fb72deee-be74-47b4-b1c4-c9125608abea',
+        assistantId: 'd445d7b9-0a58-4107-8e23-1a76dddcb575',
         //assistantId: 'a426ba54-d8e6-4990-a707-35b6ae1707a6',
         sessionId: sesion,
         input:{
