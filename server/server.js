@@ -1,3 +1,4 @@
+require('./config/config');
 
 const express = require('express');
 const http = require('http');
@@ -14,7 +15,7 @@ app.use(require('./watson/watson'));
 
 
 
-mongoose.connect('mongodb+srv://jotauser:Passw0rd@cluster0-xbunp.mongodb.net/Chat-Jota',
+mongoose.connect(urlDB,
     { useNewUrlParser: true, useUnifiedTopology:true},  (err,res) =>{
     
     if (err) throw err;
