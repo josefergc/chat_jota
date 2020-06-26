@@ -1,9 +1,11 @@
-
+    
 
 //Watson Authorization
-watsonAPI = 'uReiXhhCtexB9KT8KONR2IsX9hGpuGeeO6cR9RMSZOfN';
-watsonUrl = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/525ba956-18ba-4fe5-b359-69438f37f18c';
-watsonAssistantID = 'ac142dda-d0b5-44d1-9dd5-5649ff5fddf5';
+watsonAPI = 'RKJmfnhq3y2Y8xLV_r07oIvg2q4mMXhghLKaoJpWE8n3';
+watsonUrl = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/00ccc046-a9aa-4f02-a7b8-b01eb54cec26';
+watsonAssistantID = '33e464fb-82a0-4a55-9633-69cc6a39971b';
+
+
 
 
 
