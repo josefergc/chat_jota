@@ -10,5 +10,5 @@ watsonAssistantID = '33e464fb-82a0-4a55-9633-69cc6a39971b';
 
 
 //Base Datos
-urlDB = 'MONGO_URI:  mongodb+srv://jotauser:Passw0rd@cluster0-xbunp.mongodb.net/Chat-Jota'
+urlDB = 'mongodb+srv://jotauser:Passw0rd@cluster0-xbunp.mongodb.net/Chat-Jota'
 
