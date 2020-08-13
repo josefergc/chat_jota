@@ -42,10 +42,7 @@ else{
     sessionStorage.setItem('nombre',usuario.nombre);
     sessionStorage.setItem('email',usuario.email);
     sessionStorage.setItem('telefono',usuario.telefono); 
-    respsesion = await getSession();
-    sesiontmp = respsesion.session_id; 
-    imagedir = respsesion.url_image;
-    urlchat = respsesion.urlchat;
+    sesiontmp = getSession();
 }
 
 
@@ -75,8 +72,9 @@ async function getSession()  {
         }
         idSesion = response.session_id;
         sessionStorage.setItem('sesion',idSesion);
-        
-        return response; 
+        imagedir = response.url_image;
+
+        return response.session_id; 
     
     }catch(err){
         console.log(err);
