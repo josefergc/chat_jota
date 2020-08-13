@@ -32,8 +32,9 @@ app.get('/sesion', function(req, res){
         //assistantId: 'a426ba54-d8e6-4990-a707-35b6ae1707a6'
     })
     .then(response => {
+        
         console.log(response.result);
-        res.json(response.result); 
+        res.json({session_id : response.session_id , url_chat : urlchat, url_image : urlimage }); 
     })
     .catch(err => {
         console.log(err);

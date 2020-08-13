@@ -1,14 +1,12 @@
 var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
+let urlchat = "";
+let urlimage = "";
 var sesiontmp = "";
-const urlvar = process.env.Url_Svr;
-const urlchat = process.env.Url_Chat;
-const urlimage = process.env.Url_Image;
+const urlvar = "https://jota-chat.herokuapp.com";
 
-console.log(ulrvar);
-console.log(urlchat);
-console.log(urlimage);
+
 
 var mensajeUsuario = "";
 
@@ -76,6 +74,8 @@ async function getSession()  {
             return;
         }
         idSesion = response.session_id;
+        urlchat = response.url_chat;
+        urlimage = response.urlimage;
         sessionStorage.setItem('sesion',idSesion);
         return idSesion; 
     
