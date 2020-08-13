@@ -2,8 +2,9 @@ var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
 var urlchat = "";
-var urlimage = "";
+let imagedir = "";
 var sesiontmp = "";
+var respsesion;
 const urlvar = "https://jota-chat.herokuapp.com";
 
 
@@ -11,7 +12,7 @@ const urlvar = "https://jota-chat.herokuapp.com";
 var mensajeUsuario = "";
 
 
-var mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["mesadeservicio",link]';
+const mensajeError = 'Lamento no poder ayudarte en este momento, para comunicarte con un agente de servicio puedes ir al siguiente enlace &LINK_["mesadeservicio",link]';
  
 
 
@@ -41,11 +42,11 @@ else{
     sessionStorage.setItem('nombre',usuario.nombre);
     sessionStorage.setItem('email',usuario.email);
     sessionStorage.setItem('telefono',usuario.telefono); 
-    sesiontmp = getSession();
-
+    respsesion = getSession();
+    sesiontmp = respsesion.session_id;
+    urlchat = respsesion.url_chat;
+    imagedir = respsesion.url_image;   
 }
-
-
 
 
 
@@ -53,8 +54,6 @@ var saludo = '';
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
-let imagedir = urlimage;
-//'https://jota-chat.s3.amazonaws.com/';
 var vezSinResponder = 0;
 
 async function getSession()  {
@@ -73,13 +72,9 @@ async function getSession()  {
             return;
         }
         idSesion = response.session_id;
-        urlchat = response.url_chat;
-        urlimage = response.url_image;
-
         sessionStorage.setItem('sesion',idSesion);
-        console.log(urlchat);
-        console.log(urlimage);
-        return idSesion; 
+       
+        return response; 
     
     }catch(err){
         console.log(err);
@@ -313,7 +308,8 @@ const responderJota = async (mensaje) => {
         //si pierda la sesion se debe volver a conectar
         else if (responder.err.code === 404)
         {
-            sesiontmp = await getSession();
+            respsesion = await getSession();
+            sesiontmp = respsesion.session_id;
             responder = await getrespuesta(sesiontmp,mensaje);
             if (responder.result.output.generic[0])
                 answer = responder.result.output.generic[0].text;  
