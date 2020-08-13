@@ -2,8 +2,8 @@ var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
 var urlchat = "";
-let imagedir = "";
 var sesiontmp = "";
+var imagedir = "";
 var respsesion;
 const urlvar = "https://jota-chat.herokuapp.com";
 
@@ -42,7 +42,10 @@ else{
     sessionStorage.setItem('nombre',usuario.nombre);
     sessionStorage.setItem('email',usuario.email);
     sessionStorage.setItem('telefono',usuario.telefono); 
-    sesiontmp = getSession();   
+    respsesion = await getSession();
+    sesiontmp = respsesion.session_id; 
+    imagedir = respsesion.url_image;
+    urlchat = respsesion.urlchat;
 }
 
 
@@ -52,6 +55,8 @@ var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
 var vezSinResponder = 0;
+
+
 
 async function getSession()  {
     try{
@@ -70,9 +75,8 @@ async function getSession()  {
         }
         idSesion = response.session_id;
         sessionStorage.setItem('sesion',idSesion);
-        imagedir = response.url_image;
         
-        return response.session_id; 
+        return response; 
     
     }catch(err){
         console.log(err);
