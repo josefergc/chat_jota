@@ -46,7 +46,7 @@ else{
     sesiontmp = respsesion.session_id;
     urlchat = respsesion.url_chat;
     imagedir = respsesion.url_image;
-    console.log(sesiontmp)
+    console.log(respsesion)
     console.log(urlchat)
     console.log(imagedir)   
 }
