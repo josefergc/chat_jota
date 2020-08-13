@@ -1,8 +1,8 @@
 var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
-let urlchat = "";
-let urlimage = "";
+var urlchat = "";
+var urlimage = "";
 var sesiontmp = "";
 const urlvar = "https://jota-chat.herokuapp.com";
 
@@ -61,8 +61,7 @@ async function getSession()  {
     try{
         const uri = urlvar + '/sesion' ;
         //const uri = 'https://jota-chat.herokuapp.com/sesion';
-        //const uri = 'http://localhost:3000/sesion';
-
+       
         const response = await (await fetch(uri, {
             method:'GET',
             headers: { 'Content-Type': 'application/json'},
@@ -80,7 +79,6 @@ async function getSession()  {
         sessionStorage.setItem('sesion',idSesion);
         console.log(urlchat);
         console.log(urlimage);
-        console.log(idSesion);
         return idSesion; 
     
     }catch(err){
@@ -94,7 +92,6 @@ async function getrespuesta (numsesion,mensaje) {
     
     try{
         const uri = urlvar + '/respuesta';
-        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -187,9 +184,6 @@ function transformarMensaje(tipo, mensaje, separador) {
             break;
     }
           
-
-    
-        
     //mensaje = mensaje.substring(0,lista-1) + htmlLista + mensaje.substring(posicion+lista+8,mensaje.length);
     return html + mensaje.substring(posicion+1);
 }
