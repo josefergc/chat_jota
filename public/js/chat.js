@@ -77,6 +77,8 @@ async function getSession()  {
         urlchat = response.url_chat;
         urlimage = response.url_image;
         sessionStorage.setItem('sesion',idSesion);
+        console.log(urlchat);
+        console.log(urlimage);
         return idSesion; 
     
     }catch(err){
