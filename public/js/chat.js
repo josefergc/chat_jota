@@ -2,10 +2,13 @@ var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
 var sesiontmp = "";
-const ulrvar = process.env.Url_Svr;
+const urlvar = process.env.Url_Svr;
 const urlchat = process.env.Url_Chat;
 const urlimage = process.env.Url_Image;
 
+console.log(ulrvar);
+console.log(urlchat);
+console.log(urlimage);
 
 var mensajeUsuario = "";
 
@@ -58,7 +61,7 @@ var vezSinResponder = 0;
 
 async function getSession()  {
     try{
-        const uri = ulrvar + '/sesion' ;
+        const uri = urlvar + '/sesion' ;
         //const uri = 'https://jota-chat.herokuapp.com/sesion';
         //const uri = 'http://localhost:3000/sesion';
 
@@ -86,7 +89,7 @@ async function getSession()  {
 async function getrespuesta (numsesion,mensaje) {
     
     try{
-        const uri = ulrvar + '/respuesta';
+        const uri = urlvar + '/respuesta';
         //const uri = 'https://jota-chat.herokuapp.com/respuesta';
         
         const response = await (await fetch(uri, {
