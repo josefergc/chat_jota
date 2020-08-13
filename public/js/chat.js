@@ -309,8 +309,7 @@ const responderJota = async (mensaje) => {
         //si pierda la sesion se debe volver a conectar
         else if (responder.err.code === 404)
         {
-            respsesion = await getSession();
-            sesiontmp = respsesion.session_id;
+            sesiontmp = await getSession();
             responder = await getrespuesta(sesiontmp,mensaje);
             if (responder.result.output.generic[0])
                 answer = responder.result.output.generic[0].text;  
