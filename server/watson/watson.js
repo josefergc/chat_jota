@@ -34,7 +34,7 @@ app.get('/sesion', function(req, res){
     .then(response => {
         
         console.log(response.result);
-        res.json({code: response.code, session_id : response.session_id , url_chat : urlchat, url_image : urlimage }); 
+        res.json({code: response.result.code, session_id : response.result.session_id , url_chat : urlchat, url_image : urlimage }); 
     })
     .catch(err => {
         console.log(err);
