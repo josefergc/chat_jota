@@ -73,7 +73,8 @@ async function getSession()  {
         idSesion = response.session_id;
         sessionStorage.setItem('sesion',idSesion);
         imagedir = response.url_image;
-
+        urlchat = response.url_chat;
+        
         return response.session_id; 
     
     }catch(err){
