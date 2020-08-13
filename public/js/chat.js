@@ -2,6 +2,10 @@ var params = new URLSearchParams(window.location.search);
 var usuario;
 let idSesion = "";
 var sesiontmp = "";
+const ulrvar = process.env.Url_Svr;
+const urlchat = process.env.Url_Chat;
+const urlimage = process.env.Url_Image;
+
 
 var mensajeUsuario = "";
 
@@ -48,12 +52,14 @@ var saludo = '';
 var respuesta = [];
 var htmltemp = '';
 let numImagen = 0;
-let imagedir = 'https://jota-chat.s3.amazonaws.com/';
+let imagedir = urlimage;
+//'https://jota-chat.s3.amazonaws.com/';
 var vezSinResponder = 0;
 
 async function getSession()  {
     try{
-        const uri = 'https://jota-chat.herokuapp.com/sesion';
+        const uri = ulrvar + '/sesion' ;
+        //const uri = 'https://jota-chat.herokuapp.com/sesion';
         //const uri = 'http://localhost:3000/sesion';
 
         const response = await (await fetch(uri, {
@@ -80,8 +86,8 @@ async function getSession()  {
 async function getrespuesta (numsesion,mensaje) {
     
     try{
-        const uri = 'https://jota-chat.herokuapp.com/respuesta';
-        //const uri = 'http://localhost:3000/respuesta';
+        const uri = ulrvar + '/respuesta';
+        //const uri = 'https://jota-chat.herokuapp.com/respuesta';
         
         const response = await (await fetch(uri, {
             method:'GET',
@@ -154,7 +160,7 @@ function transformarMensaje(tipo, mensaje, separador) {
         case "link":
             
             if (itemList[0].search("mesadeservicio")>-1)
-                html += '<a href="https://oscloud.com.co:8092/webchatLogin.php?Nm=' + usuario.nombre + '&Cr='+ usuario.email+ '&Tp='+ usuario.telefono+ '&As='+ mensajeUsuario+ '" target="_blank">Mesa de servicio</a>';
+                html += '<a href="' + urlchat + 'Nm=' + usuario.nombre + '&Cr='+ usuario.email+ '&Tp='+ usuario.telefono+ '&As='+ mensajeUsuario+ '" target="_blank">Mesa de servicio</a>';
             else
             {
                 html += '<a href='+itemList[0] + ' ';
